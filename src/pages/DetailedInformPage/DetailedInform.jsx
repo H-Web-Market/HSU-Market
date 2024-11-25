@@ -21,6 +21,10 @@ export const DetailedInform = ({ products, toggleLike }) => {
         navigate('/mypage');
     };
 
+    const handleChatBtnClick = () => {
+        navigate('/Chat');
+    };
+
     if (!product) return null; // 제품 정보가 없으면 아무것도 렌더링하지 않음
 
 
@@ -62,7 +66,7 @@ export const DetailedInform = ({ products, toggleLike }) => {
                     <div className={styles.productInfoContainer}>
                         <div className={styles.productName}>{product.title}</div>
                         <div className={styles.price}>{product.price}</div>
-                        <div className={styles.description}>이 제품은 ...</div>
+                        <div className={styles.description}>{product.description}</div>
                     </div>
                 </div>
                 
@@ -76,7 +80,7 @@ export const DetailedInform = ({ products, toggleLike }) => {
                     />
                     <span className={styles.likesCount}>32</span>
                 </div>
-                <button className={styles.chatButton}>채팅하기</button>
+                <button className={styles.chatButton} onClick={handleChatBtnClick}>채팅하기</button>
                 
                     <div className={styles.userInfo}>
                         <span className={styles.username}>

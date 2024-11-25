@@ -1,0 +1,28 @@
+.ProductList{
+    height: auto;
+    position:relative;
+    width:100%;
+    margin-top:20px;
+    display: flex; /* Flexbox 활성화 */
+    flex-wrap: wrap; /* 카드가 줄 바꿈 가능하도록 설정 */
+    justify-content: flex-start; /* 카드 간의 간격을 균등하게 배치 */
+}
+
+.content {
+    height: auto; /* 높이를 auto로 변경하여 내용에 따라 조정 */
+    position: relative; /* 변경: top 속성 제거 */
+    width: calc(100%); /* header와 동일하게 수정 */
+    margin-top: 40px; /* header와의 간격 */
+}
+
+
+.textWrapper{
+    color : black;
+    font-family: "Poppins-SemiBold",Helvetica;
+    font-size:26px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    margin-top:20px;
+}

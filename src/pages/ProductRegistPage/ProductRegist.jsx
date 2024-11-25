@@ -47,6 +47,7 @@ export const ProductRegist = ({ onAddProduct }) => {
         
         // onAddProduct는 상위 컴포넌트에서 전달받은 함수
         onAddProduct(newProduct);
+        navigate('/home');
 
         // 입력 필드 초기화
         setTitle('');

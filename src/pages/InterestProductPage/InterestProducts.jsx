@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import Sidebar from './SideBar';
-import image from "../data/image.png";
-import styles from "./Main.module.css";
-import SearchBar from "../mypage/SearchBar";
-import Content from "../MainPage/Content";
+import Sidebar from '../Main/SideBar';
+import styles from "./InterestProducts.module.css";
+import SearchBar from "../Main/SearchBar";
+import InterestProductList from "./InterestProductList";
 import { useNavigate } from 'react-router-dom';
 
 
-export const Main = ({products, toggleLike}) => {
+export const InterestProducts = ({products, toggleLike, setProducts}) => {
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm]=useState("");
@@ -48,11 +47,11 @@ export const Main = ({products, toggleLike}) => {
                 </div>
             </header>
             <section className={styles.contentSection}>
-                <Content products={products} toggleLike={toggleLike}/>
+              <InterestProductList toggleLike={toggleLike} products={products} searchTerm={searchTerm}/>
             </section>
           </main>
         </div>
       );
 };
 
-export default Main;
+export default InterestProducts;

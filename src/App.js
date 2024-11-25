@@ -15,14 +15,16 @@ import Main from './pages/Main/Main';
 import ProductRegist from "./pages/ProductRegistPage/ProductRegist";
 import ProductEdit from "./pages/ProductEditPage/ProductEdit";
 import DetailedInform from './pages/DetailedInformPage/DetailedInform';
+import InterestProduct from './pages/InterestProductPage/InterestProducts';
 import image from './pages/data/image.png';
+
 
 function App() {
   const [products, setProducts] = useState([
-    { title: "에어팟 프로 1", price: "200,000원", time: "1시간 전", imageSrc: image, isLiked: false },
-    { title: "바이레도 블랑쉬 50ml", price: "150,000원", time: "3시간 전", imageSrc: image, isLiked: false },
-    { title: "아이폰 13 프로 맥스", price: "1,000,000원", time: "7시간 전", imageSrc: image, isLiked: false },
-    { title: "커피 머신", price: "470,000원", time: "3일 전", imageSrc: image, isLiked: false },
+    { title: "에어팟 프로 1", price: "200,000원", description :"이 제품은...", time: "1시간 전", imageSrc: image, isLiked: false },
+    { title: "바이레도 블랑쉬 50ml", price: "150,000원", description :"이 제품은...",time: "3시간 전", imageSrc: image, isLiked: false },
+    { title: "아이폰 13 프로 맥스", price: "1,000,000원", description :"이 제품은...", time: "7시간 전", imageSrc: image, isLiked: false },
+    { title: "커피 머신", price: "470,000원", description :"이 제품은...",time: "3일 전", imageSrc: image, isLiked: false },
   ]);
   
   const handleAppProduct = (newProduct) => {
@@ -34,11 +36,14 @@ function App() {
       prevProducts.map((product) =>
         product.title === productTitle ? { ...product, isLiked: !product.isLiked } : product));
   };
-  
-  const [searchTerm, setSearchTerm]=useState("");
 
-  const handleSearch = (term) => {
-    setSearchTerm(term); // 검색어 상태 업데이트
+  const updateProduct = (updatedProduct) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.title === updatedProduct.title ? updatedProduct : product
+      )
+    );
+    console.log(products);
   };
 
   return (
@@ -67,13 +72,14 @@ function App() {
         {/* 리뷰 작성 페이지 */}
         <Route path="/AddReview/:chatId" element={<AddReview/>}/>
         {/* 메인 페이지 */}
-        <Route path="/Home" element={<Main products={products} toggleLike={toggleLike} setProducts={setProducts}/>} />
+        <Route path="/Home" element={<Main products={products} toggleLike={toggleLike}/>} />
         {/* 상품 등록 페이지 */}
         <Route path="/ProductRegist" element={<ProductRegist onAddProduct={handleAppProduct} />} />
         {/* 상품 수정 페이지 */}
-        <Route path="/ProductEdit" element={<ProductEdit onAddProduct={handleAppProduct} />} />
+        <Route path="/ProductEdit/:title" element={<ProductEdit products={products} onUpdateProduct={updateProduct} />} />
         {/* 상품 상세 페이지 */}
         <Route path="/DetailedInform/:title" element={<DetailedInform products={products} toggleLike={toggleLike}/>} />
+        <Route path="/interests" element={<InterestProduct products={products} toggleLike={toggleLike} setProducts={setProducts}/>}/>
       </Routes>
     </Router>
   );
