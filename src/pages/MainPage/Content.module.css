@@ -1,9 +1,7 @@
 .content {
-    background-color: blue;
     height: auto; /* 높이를 auto로 변경하여 내용에 따라 조정 */
     position: relative; /* 변경: top 속성 제거 */
-    width: calc(100% - 200px); /* header와 동일하게 수정 */
-    margin-left: 150px; /* 사이드바 너비 + 여유 공간 */
+    width: calc(100%); /* header와 동일하게 수정 */
     margin-top: 40px; /* header와의 간격 */
 }
 

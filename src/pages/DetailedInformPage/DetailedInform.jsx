@@ -1,37 +1,73 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import avatar from "../data/avatar.png";
 import heart from "../data/heart.png";
 import emptyHeart from "../data/emptyheart.png";
 import styles from "./DetailedInform.module.css";
+import Sidebar from "../Main/SideBar";
+import SearchBar from "../Main/SearchBar";
 
 export const DetailedInform = ({ products, toggleLike }) => {
     const { title } = useParams(); // URL 파라미터에서 제목 가져오기
     const product = products.find(p => p.title === title); // 제품 정보 검색
 
+    const navigate = useNavigate();
+
+    const handleNotificationClick = () => {
+        navigate('/notification');
+    };
+    
+    const handleUserAvatarClick = () => {
+        navigate('/mypage');
+    };
+
     if (!product) return null; // 제품 정보가 없으면 아무것도 렌더링하지 않음
 
+
     return (
-        <div className={styles.detailInform}>
-            <div className={styles.header}>
-                <h1 className={styles.title}>상세 정보</h1>
-            </div>
-            <h1 className={styles.categoryText}>카테고리 : 생활 가전</h1>
-            
-            <div className={styles.productContent}>
-                <div className={styles.imageContainer}>
-                    <img src={product.imageSrc} alt="Product" className={styles.productImage} />
+        <div className={styles.detailInformPageContainer}>
+        <Sidebar/>
+        <main className={styles.mainContent}>
+            <header className={styles.pageHeader}>
+                <SearchBar/>
+                <div className={styles.userIcons}>
+                    <img 
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/03ed7ff2fb1e7c53557240672da85ebfc178133bd4f13717960dbae4d0118d17?placeholderIfAbsent=true&apiKey=4ff31f8795cd4edc98e7741aaa589c6c" 
+                    alt="Notifications" 
+                    className={styles.notificationIcon} 
+                    onClick={handleNotificationClick}
+                    style={{ cursor: 'pointer' }}
+                    />
+                    <img 
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf7a9a8e05d2698d57ae5e99b196bf039513b5a28e9d9c00b4aa82e8636b86f6?placeholderIfAbsent=true&apiKey=4ff31f8795cd4edc98e7741aaa589c6c" 
+                    alt="User avatar" 
+                    className={styles.userAvatar} 
+                    onClick={handleUserAvatarClick}
+                    style={{ cursor: 'pointer' }}
+                    />
+                </div>
+            </header>
+            <section className={styles.contentSection}>
+                <div className={styles.detailInform}>
+                    <div className={styles.header}>
+                        <h1 className={styles.title}>상세 정보</h1>
+                    </div>
+                    <h1 className={styles.categoryText}>카테고리 : 생활 가전</h1>
+                    
+                <div className={styles.productContent}>
+                    <div className={styles.imageContainer}>
+                        <img src={product.imageSrc} alt="Product" className={styles.productImage} />
+                    </div>
+                    
+                    <div className={styles.productInfoContainer}>
+                        <div className={styles.productName}>{product.title}</div>
+                        <div className={styles.price}>{product.price}</div>
+                        <div className={styles.description}>이 제품은 ...</div>
+                    </div>
                 </div>
                 
-                <div className={styles.productInfoContainer}>
-                    <div className={styles.productName}>{product.title}</div>
-                    <div className={styles.price}>{product.price}</div>
-                    <div className={styles.description}>이 제품은 ...</div>
-                </div>
-            </div>
-
-            <div className={styles.userContent}>
-                <div className={styles.likes}>
+                <div className={styles.userContent}>
+                    <div className={styles.likes}>
                     <img 
                         className={styles.heart} 
                         alt="Heart" 
@@ -42,14 +78,17 @@ export const DetailedInform = ({ products, toggleLike }) => {
                 </div>
                 <button className={styles.chatButton}>채팅하기</button>
                 
-                <div className={styles.userInfo}>
-                    <span className={styles.username}>
-                        <img className={styles.avatar} alt="Avatar" src={avatar} />
-                        hyundo
-                    </span>
+                    <div className={styles.userInfo}>
+                        <span className={styles.username}>
+                            <img className={styles.avatar} alt="Avatar" src={avatar} />
+                            hyundo
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </div>  
+                </div>  
+            </section>
+        </main>
+    </div>
     );
 };
 

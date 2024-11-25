@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// LoginMain 컴포넌트 임포트
 import LoginMain from './pages/LoginMainPage/LoginMain';
 import SignUpForm from './pages/SignUpFormPage/SignUpForm';
 import EmailVerification from './pages/EmailVerificationPage/EmailVerification';
@@ -16,8 +15,32 @@ import Main from './pages/Main/Main';
 import ProductRegist from "./pages/ProductRegistPage/ProductRegist";
 import ProductEdit from "./pages/ProductEditPage/ProductEdit";
 import DetailedInform from './pages/DetailedInformPage/DetailedInform';
+import image from './pages/data/image.png';
 
 function App() {
+  const [products, setProducts] = useState([
+    { title: "에어팟 프로 1", price: "200,000원", time: "1시간 전", imageSrc: image, isLiked: false },
+    { title: "바이레도 블랑쉬 50ml", price: "150,000원", time: "3시간 전", imageSrc: image, isLiked: false },
+    { title: "아이폰 13 프로 맥스", price: "1,000,000원", time: "7시간 전", imageSrc: image, isLiked: false },
+    { title: "커피 머신", price: "470,000원", time: "3일 전", imageSrc: image, isLiked: false },
+  ]);
+  
+  const handleAppProduct = (newProduct) => {
+    setProducts((prevProducts) => [...prevProducts, newProduct]);
+  };
+  
+  const toggleLike = (productTitle) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.title === productTitle ? { ...product, isLiked: !product.isLiked } : product));
+  };
+  
+  const [searchTerm, setSearchTerm]=useState("");
+
+  const handleSearch = (term) => {
+    setSearchTerm(term); // 검색어 상태 업데이트
+  };
+
   return (
     <Router>
       <Routes>
@@ -44,13 +67,13 @@ function App() {
         {/* 리뷰 작성 페이지 */}
         <Route path="/AddReview/:chatId" element={<AddReview/>}/>
         {/* 메인 페이지 */}
-        <Route path="/Main" element={<Main />} />
+        <Route path="/Home" element={<Main products={products} toggleLike={toggleLike} setProducts={setProducts}/>} />
         {/* 상품 등록 페이지 */}
-        <Route path="/ProductRegist" element={<ProductRegist />} />
+        <Route path="/ProductRegist" element={<ProductRegist onAddProduct={handleAppProduct} />} />
         {/* 상품 수정 페이지 */}
-        <Route path="/ProductEdit" element={<ProductEdit />} />
+        <Route path="/ProductEdit" element={<ProductEdit onAddProduct={handleAppProduct} />} />
         {/* 상품 상세 페이지 */}
-        <Route path="/DetailedInform" element={<DetailedInform />} />
+        <Route path="/DetailedInform/:title" element={<DetailedInform products={products} toggleLike={toggleLike}/>} />
       </Routes>
     </Router>
   );

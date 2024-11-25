@@ -8,7 +8,7 @@ const Product = ({ title, price, time, imageSrc, isLiked, toggleLike }) => {
     const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
 
     const handleShowDetails = () => {
-        navigate(`/product/${title}`); // 상세 페이지로 이동
+        navigate(`/DetailedInform/${title}`); // 상세 페이지로 이동
     };
 
     return (
